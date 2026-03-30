@@ -25,9 +25,9 @@ const footerLinks: Record<string, { label: string; href: string; external?: bool
     { label: "Quickstart", href: "/developers#quickstart" },
   ],
   Community: [
-    { label: "Twitter / X", href: "https://twitter.com/growstreams", external: true },
-    { label: "GitHub", href: "https://github.com/growstreams", external: true },
-    { label: "Telegram", href: "https://t.me/growstreams", external: true },
+    { label: "Twitter / X", href: "https://x.com/GrowwStreams", external: true },
+    { label: "GitHub", href: "https://github.com/BlockXAI/GrowStreams_Backend/blob/main/PLAN.md", external: true },
+    { label: "Telegram", href: "https://t.me/hypervara", external: true },
     { label: "Contact Us", href: "mailto:hello@growstreams.io", external: true },
   ],
 }
