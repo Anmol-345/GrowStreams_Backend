@@ -1,0 +1,107 @@
+﻿
+> growstreams-frontend@2.0.0 build
+> next build
+
+node.exe :  ΓÜá Warning: 
+Next.js inferred your 
+workspace root, but it 
+may not be correct.
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:
+\Users\anmol\AppData\Roami
+ng\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (   
+  ΓÜá Warning: N...not    
+ be correct.:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+ We detected multiple 
+lockfiles and selected 
+the directory of C:\Users\
+anmol\OneDrive\Documents\M
+y Codes\growstream\GrowStr
+eams_Backend\package-lock.
+json as the root 
+directory.
+ To silence this warning, 
+set 
+`outputFileTracingRoot` 
+in your Next.js config, 
+or consider removing one 
+of the lockfiles if it's 
+not needed.
+   See https://nextjs.org/
+docs/app/api-reference/con
+fig/next-config-js/output#
+caveats for more 
+information.
+ Detected additional 
+lockfiles: 
+   * C:\Users\anmol\OneDri
+ve\Documents\My Codes\grow
+stream\GrowStreams_Backend
+\frontend\package-lock.jso
+n
+
+   Γû▓ Next.js 15.5.12
+
+   Creating an optimized production build ...
+ΓÜá∩╕Å Warning: Missing 
+Supabase environment 
+variables. Using mock 
+data for development.
+ΓÜá∩╕Å Warning: Missing 
+Supabase environment 
+variables. Using mock 
+data for development.
+Failed to compile.
+
+./app/app/streams/page.tsx
+Error:   [31mx[0m 
+'import', and 'export' 
+cannot be used outside of 
+module code
+    ,-[[36;1;4mC:\Users\a
+nmol\OneDrive\Documents\My
+ Codes\growstream\GrowStre
+ams_Backend\frontend\app\a
+pp\streams\page.tsx[0m:22
+:1]
+ [2m19[0m | 
+ [2m20[0m |   "use 
+client";
+ [2m21[0m | 
+ [2m22[0m |   import { 
+useEffect, useState, 
+useRef, FormEvent } from 
+'react';
+    : [35;1m  ^^^^^^[0m
+ [2m23[0m |   import { 
+useAccount } from 
+'@gear-js/react-hooks';
+ [2m24[0m |   import 
+Link from 'next/link';
+ [2m25[0m |   import { 
+api, type StreamData, 
+type StreamConfig } from 
+'@/lib/growstreams-api';
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for 
+requested module:
+./app/app/streams/page.tsx
+
+
+> Build failed because of 
+webpack errors

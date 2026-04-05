@@ -12,7 +12,8 @@ import { useStreamActions } from '@/hooks/useGrowStreams';
 import { toast } from 'sonner';
 import {
   Waves, Play, Pause, Square, Plus, RefreshCw, ArrowDownToLine,
-  ArrowUpFromLine, AlertTriangle, Zap, Clock, TrendingDown, TrendingUp
+  ArrowUpFromLine, AlertTriangle, Zap, Clock, TrendingDown, TrendingUp,
+  History, CheckCircle2, Droplets, Calendar
 } from 'lucide-react';
 
 const ZERO_TOKEN = '0x0000000000000000000000000000000000000000000000000000000000000000';
@@ -70,9 +71,9 @@ function truncAddr(addr: string): string {
   return addr.slice(0, 8) + '...' + addr.slice(-6);
 }
 
-function formatDuration(seconds: number): string {
-  if (seconds <= 0) return 'Depleted';
+function formatDuration(seconds: number, forHistory = false): string {
   if (seconds === Infinity) return '\u221e';
+  if (seconds <= 0) return forHistory ? '< 1s' : 'Depleted';
   const d = Math.floor(seconds / 86400);
   const h = Math.floor((seconds % 86400) / 3600);
   const m = Math.floor((seconds % 3600) / 60);
@@ -131,9 +132,8 @@ function StreamCard({
   const isReceiver = s.receiver?.toLowerCase() === account?.toLowerCase();
 
   return (
-    <div className={`bg-provn-surface border rounded-xl p-5 transition-colors ${
-      rt.isDepleted ? 'border-provn-border/50 opacity-70' : rt.isCritical ? 'border-red-500/50 shadow-red-500/5 shadow-lg' : 'border-provn-border'
-    }`}>
+    <div className={`bg-provn-surface border rounded-xl p-5 transition-colors ${rt.isDepleted ? 'border-provn-border/50 opacity-70' : rt.isCritical ? 'border-red-500/50 shadow-red-500/5 shadow-lg' : 'border-provn-border'
+      }`}>
       {rt.isCritical && (
         <div className="flex items-center gap-2 mb-3 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
           <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0" />
@@ -209,9 +209,8 @@ function StreamCard({
           </p>
           <div className="mt-2 h-1.5 bg-provn-border/50 rounded-full overflow-hidden">
             <div
-              className={`h-full rounded-full transition-all duration-1000 ${
-                rt.isCritical ? 'bg-red-500' : rt.progress > 75 ? 'bg-amber-500' : 'bg-emerald-500'
-              }`}
+              className={`h-full rounded-full transition-all duration-1000 ${rt.isCritical ? 'bg-red-500' : rt.progress > 75 ? 'bg-amber-500' : 'bg-emerald-500'
+                }`}
               style={{ width: `${Math.min(rt.progress, 100)}%` }}
             />
           </div>
@@ -297,13 +296,13 @@ export default function StreamsPage() {
     try {
       const saved = localStorage.getItem('growstreams_names');
       if (saved) setStreamNames(JSON.parse(saved));
-    } catch {}
+    } catch { }
   }, []);
 
   const saveStreamName = (id: number, name: string) => {
     const updated = { ...streamNames, [id]: name };
     setStreamNames(updated);
-    try { localStorage.setItem('growstreams_names', JSON.stringify(updated)); } catch {}
+    try { localStorage.setItem('growstreams_names', JSON.stringify(updated)); } catch { }
   };
 
   useEffect(() => {
@@ -324,7 +323,7 @@ export default function StreamsPage() {
       ]);
       const allIds = [...new Set([...(sent.streamIds || []), ...(received.streamIds || [])])];
       const details = await Promise.all(
-        allIds.slice(0, 30).map(id => api.streams.get(Number(id)).catch(() => null))
+        allIds.slice(0, 100).map(id => api.streams.get(Number(id)).catch(() => null))
       );
       const valid = details.filter(Boolean) as StreamData[];
       valid.sort((a, b) => b.id - a.id);
@@ -575,18 +574,24 @@ export default function StreamsPage() {
       )}
 
       {/* Tabs for stream status */}
-      <div className="flex gap-2 mt-8 mb-4">
+      <div className="flex items-center gap-1 mt-8 mb-4 border-b border-provn-border/50">
         {[
-          { key: 'active', label: 'Active' },
-          { key: 'paused', label: 'Paused' },
-          { key: 'history', label: 'History' },
+          { key: 'active', label: 'Active', count: activeStreams.length, icon: Zap, activeColor: 'text-emerald-400 border-emerald-500' },
+          { key: 'paused', label: 'Paused', count: pausedStreams.length, icon: Clock, activeColor: 'text-amber-400 border-amber-500' },
+          { key: 'history', label: 'History', count: historyStreams.length, icon: History, activeColor: 'text-blue-400 border-blue-500' },
         ].map(t => (
           <button
             key={t.key}
-            className={`px-4 py-2 rounded-t-lg border-b-2 font-medium transition-colors ${tab === t.key ? 'border-emerald-500 text-emerald-500 bg-provn-bg' : 'border-transparent text-provn-muted bg-transparent'}`}
+            className={`flex items-center gap-2 px-4 py-2.5 border-b-2 font-medium text-sm transition-colors -mb-px ${tab === t.key ? t.activeColor + ' bg-transparent' : 'border-transparent text-provn-muted hover:text-provn-text'
+              }`}
             onClick={() => setTab(t.key as StreamsTab)}
           >
+            <t.icon className="w-3.5 h-3.5" />
             {t.label}
+            {t.count > 0 && (
+              <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold ${tab === t.key ? 'bg-current/10' : 'bg-provn-border/50 text-provn-muted'
+                }`}>{t.count}</span>
+            )}
           </button>
         ))}
       </div>
@@ -645,52 +650,113 @@ export default function StreamsPage() {
             </div>
           )}
           {tab === 'history' && (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {historyStreams.length === 0 ? (
                 <div className="text-center py-16 text-provn-muted">
-                  <Waves className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                  <p className="mb-1">No stopped streams yet</p>
+                  <History className="w-12 h-12 mx-auto mb-3 opacity-20" />
+                  <p className="font-medium mb-1">No stream history yet</p>
+                  <p className="text-sm opacity-70">Stopped and completed streams will appear here</p>
                 </div>
               ) : historyStreams.map(s => {
-                  // Calculate total streamed, duration, stop date, status
-                  const stopDate = s.last_update ? new Date(Number(s.last_update) * 1000) : null;
-                  const startDate = s.start_time ? new Date(Number(s.start_time) * 1000) : null;
-                  const durationSec = stopDate && startDate ? (stopDate.getTime() - startDate.getTime()) / 1000 : 0;
-                  const totalStreamed = Number(s.flow_rate) * durationSec;
-                  const statusBadge = s.status === 'Stopped' ? 'Completed' : 'Liquidated';
-                  return (
-                    <div key={s.id} className="bg-provn-surface border rounded-xl p-5 opacity-90">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-lg font-bold">#{s.id}</span>
-                        <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-provn-border/30 text-provn-muted">{statusBadge}</span>
+                const isLiquidated = isDepleted(s, nowSec) && s.status !== 'Stopped';
+                const statusBadge = isLiquidated ? 'Liquidated' : 'Completed';
+                const isSender = s.sender?.toLowerCase() === accountHex;
+                const counterpart = isSender ? s.receiver : s.sender;
+                const counterpartLabel = isSender ? 'Recipient' : 'Sender';
+
+                // Use on-chain streamed value (accurate for paused/stopped streams)
+                const totalStreamedRaw = Number(s.streamed);
+                const depositedRaw = Number(s.deposited);
+                const withdrawnRaw = Number(s.withdrawn);
+                const progress = depositedRaw > 0 ? Math.min((totalStreamedRaw / depositedRaw) * 100, 100) : 0;
+
+                // Duration from start_time to last_update
+                const stopDate = s.last_update ? new Date(Number(s.last_update) * 1000) : null;
+                const startDate = s.start_time ? new Date(Number(s.start_time) * 1000) : null;
+                const durationSec = stopDate && startDate ? Math.max(0, (stopDate.getTime() - startDate.getTime()) / 1000) : 0;
+
+                return (
+                  <div key={s.id} className={`bg-provn-surface border rounded-xl p-5 transition-colors ${isLiquidated ? 'border-red-500/20' : 'border-provn-border'
+                    }`}>
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-2.5">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isLiquidated ? 'bg-red-500/10' : 'bg-provn-border/30'
+                          }`}>
+                          {isLiquidated
+                            ? <Droplets className="w-4 h-4 text-red-400" />
+                            : <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold">#{s.id}</span>
+                            {streamNames[s.id] && (
+                              <span className="text-xs text-provn-muted truncate max-w-[100px]">{streamNames[s.id]}</span>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${isLiquidated ? 'bg-red-500/10 text-red-400' : 'bg-emerald-500/10 text-emerald-400'
+                              }`}>
+                              {statusBadge}
+                            </span>
+                            <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${isSender ? 'bg-blue-500/10 text-blue-400' : 'bg-emerald-500/10 text-emerald-400'
+                              }`}>
+                              {isSender ? 'Sent' : 'Received'}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-3 text-xs mb-2">
-                        <div>
-                          <span className="text-provn-muted">Sender</span>
-                          <p className="font-mono mt-0.5" title={s.sender}>{truncAddr(s.sender)}</p>
-                        </div>
-                        <div>
-                          <span className="text-provn-muted">Receiver</span>
-                          <p className="font-mono mt-0.5" title={s.receiver}>{truncAddr(s.receiver)}</p>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-3 text-xs mb-2">
-                        <div>
-                          <span className="text-provn-muted">Total Streamed</span>
-                          <p className="font-mono mt-0.5">{formatTokenAmount(totalStreamed, s.token)}</p>
-                        </div>
-                        <div>
-                          <span className="text-provn-muted">Duration</span>
-                          <p className="font-mono mt-0.5">{formatDuration(durationSec)}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-provn-muted">
-                        <span>Stopped</span>
-                        <span>{stopDate ? stopDate.toLocaleString() : '—'}</span>
+                      <div className="text-right">
+                        <p className="text-xs text-provn-muted flex items-center gap-1 justify-end">
+                          <Calendar className="w-3 h-3" />
+                          {stopDate ? stopDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : '—'}
+                        </p>
+                        <p className="text-[10px] text-provn-muted/60 mt-0.5">
+                          {stopDate ? stopDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) : ''}
+                        </p>
                       </div>
                     </div>
-                  );
-                })}
+
+                    {/* Total streamed highlight */}
+                    <div className="mb-4 p-3 rounded-lg bg-provn-bg/70 border border-provn-border/50">
+                      <div className="flex items-baseline justify-between mb-1.5">
+                        <span className="text-xs text-provn-muted">Total Streamed</span>
+                        <span className="text-xs text-provn-muted">{progress.toFixed(1)}% of deposit</span>
+                      </div>
+                      <p className="text-xl font-bold font-mono tabular-nums text-provn-text mb-2">
+                        {formatTokenAmount(totalStreamedRaw, s.token)}
+                      </p>
+                      <div className="h-1.5 bg-provn-border/50 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full ${isLiquidated ? 'bg-red-500/70' : 'bg-emerald-500/70'
+                            }`}
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Stats grid */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                      <div>
+                        <span className="text-provn-muted">{counterpartLabel}</span>
+                        <p className="font-mono mt-0.5 truncate" title={counterpart}>{truncAddr(counterpart)}</p>
+                      </div>
+                      <div>
+                        <span className="text-provn-muted flex items-center gap-1"><Clock className="w-3 h-3" /> Duration</span>
+                        <p className="font-mono mt-0.5">{formatDuration(durationSec, true)}</p>
+                      </div>
+                      <div>
+                        <span className="text-provn-muted">Originally Deposited</span>
+                        <p className="font-mono mt-0.5">{formatTokenAmount(s.deposited, s.token)}</p>
+                      </div>
+                      <div>
+                        <span className="text-provn-muted">Total Withdrawn</span>
+                        <p className="font-mono mt-0.5">{formatTokenAmount(s.withdrawn, s.token)}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
