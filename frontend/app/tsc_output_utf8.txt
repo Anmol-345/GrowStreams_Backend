@@ -1,0 +1,4 @@
+﻿app/streams/page.tsx(656,38): error TS2339: Property 'updated_at' does not exist on type 'StreamData'.
+app/streams/page.tsx(656,69): error TS2339: Property 'updated_at' does not exist on type 'StreamData'.
+app/streams/page.tsx(657,39): error TS2339: Property 'created_at' does not exist on type 'StreamData'.
+app/streams/page.tsx(657,70): error TS2339: Property 'created_at' does not exist on type 'StreamData'.

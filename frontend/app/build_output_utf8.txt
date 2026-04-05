@@ -1,0 +1,358 @@
+﻿
+> growstreams-frontend@2.0.0 build
+> next build
+
+node.exe :  ΓÜá Warning: 
+Next.js inferred your 
+workspace root, but it 
+may not be correct.
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" "C:
+\Users\anmol\AppData\Roami
+ng\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (   
+  ΓÜá Warning: N...not    
+ be correct.:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+ We detected multiple 
+lockfiles and selected 
+the directory of C:\Users\
+anmol\OneDrive\Documents\M
+y Codes\growstream\GrowStr
+eams_Backend\package-lock.
+json as the root 
+directory.
+ To silence this warning, 
+set 
+`outputFileTracingRoot` 
+in your Next.js config, 
+or consider removing one 
+of the lockfiles if it's 
+not needed.
+   See https://nextjs.org/
+docs/app/api-reference/con
+fig/next-config-js/output#
+caveats for more 
+information.
+ Detected additional 
+lockfiles: 
+   * C:\Users\anmol\OneDri
+ve\Documents\My Codes\grow
+stream\GrowStreams_Backend
+\frontend\package-lock.jso
+n
+
+   Γû▓ Next.js 15.5.12
+
+   Creating an optimized production build ...
+ΓÜá∩╕Å Warning: Missing 
+Supabase environment 
+variables. Using mock 
+data for development.
+ΓÜá∩╕Å Warning: Missing 
+Supabase environment 
+variables. Using mock 
+data for development.
+Failed to compile.
+
+./app/app/campaign/page.ts
+x
+Error:   [31mx[0m `ssr: 
+false` is not allowed 
+with `next/dynamic` in 
+Server Components. Please 
+move it into a Client 
+Component.
+    ,-[[36;1;4mC:\Users\a
+nmol\OneDrive\Documents\My
+ Codes\growstream\GrowStre
+ams_Backend\frontend\app\a
+pp\campaign\page.tsx[0m:3
+:1]
+ [2m 1[0m |     import 
+dynamic from 
+"next/dynamic"
+ [2m 2[0m |     
+ [2m 3[0m | [35;1m,[0m
+[35;1m-[0m[35;1m>[0m 
+const CampaignClient = 
+dynamic(() => import("./Ca
+mpaignClient"), {
+ [2m 4[0m | 
+[35;1m|[0m     ssr: 
+false,
+ [2m 5[0m | 
+[35;1m|[0m     loading: 
+() => (
+ [2m 6[0m | 
+[35;1m|[0m       <div 
+className="flex 
+justify-center py-12">
+ [2m 7[0m | 
+[35;1m|[0m         <div 
+className="animate-spin 
+rounded-full h-8 w-8 
+border-b-2 
+border-emerald-400" />
+ [2m 8[0m | 
+[35;1m|[0m       </div>
+ [2m 9[0m | 
+[35;1m|[0m     ),
+ [2m10[0m | [35;1m`[0m
+[35;1m-[0m[35;1m>[0m 
+})
+ [2m11[0m |     
+ [2m12[0m |     export 
+default function 
+CampaignPage() {
+ [2m13[0m |       
+return <CampaignClient />
+    `----
+
+Import trace for 
+requested module:
+./app/app/campaign/page.ts
+x
+
+./app/app/grow/page.tsx
+Error:   [31mx[0m `ssr: 
+false` is not allowed 
+with `next/dynamic` in 
+Server Components. Please 
+move it into a Client 
+Component.
+    ,-[[36;1;4mC:\Users\a
+nmol\OneDrive\Documents\My
+ Codes\growstream\GrowStre
+ams_Backend\frontend\app\a
+pp\grow\page.tsx[0m:3:1]
+ [2m 1[0m |     import 
+dynamic from 
+"next/dynamic"
+ [2m 2[0m |     
+ [2m 3[0m | [35;1m,[0m
+[35;1m-[0m[35;1m>[0m 
+const GrowClient = 
+dynamic(() => 
+import("./GrowClient"), {
+ [2m 4[0m | 
+[35;1m|[0m     ssr: 
+false,
+ [2m 5[0m | 
+[35;1m|[0m     loading: 
+() => (
+ [2m 6[0m | 
+[35;1m|[0m       <div 
+className="flex 
+justify-center py-12">
+ [2m 7[0m | 
+[35;1m|[0m         <div 
+className="animate-spin 
+rounded-full h-8 w-8 
+border-b-2 
+border-emerald-400" />
+ [2m 8[0m | 
+[35;1m|[0m       </div>
+ [2m 9[0m | 
+[35;1m|[0m     ),
+ [2m10[0m | [35;1m`[0m
+[35;1m-[0m[35;1m>[0m 
+})
+ [2m11[0m |     
+ [2m12[0m |     export 
+default function 
+GrowTokenPage() {
+ [2m13[0m |       
+return <GrowClient />
+    `----
+
+Import trace for 
+requested module:
+./app/app/grow/page.tsx
+
+./app/app/leaderboard/page
+.tsx
+Error:   [31mx[0m `ssr: 
+false` is not allowed 
+with `next/dynamic` in 
+Server Components. Please 
+move it into a Client 
+Component.
+    ,-[[36;1;4mC:\Users\a
+nmol\OneDrive\Documents\My
+ Codes\growstream\GrowStre
+ams_Backend\frontend\app\a
+pp\leaderboard\page.tsx[0
+m:3:1]
+ [2m 1[0m |     import 
+dynamic from 
+"next/dynamic"
+ [2m 2[0m |     
+ [2m 3[0m | [35;1m,[0m
+[35;1m-[0m[35;1m>[0m 
+const LeaderboardClient = 
+dynamic(() => import("./Le
+aderboardClient"), {
+ [2m 4[0m | 
+[35;1m|[0m     ssr: 
+false,
+ [2m 5[0m | 
+[35;1m|[0m     loading: 
+() => (
+ [2m 6[0m | 
+[35;1m|[0m       <div 
+className="flex 
+justify-center py-12">
+ [2m 7[0m | 
+[35;1m|[0m         <div 
+className="animate-spin 
+rounded-full h-8 w-8 
+border-b-2 
+border-emerald-400" />
+ [2m 8[0m | 
+[35;1m|[0m       </div>
+ [2m 9[0m | 
+[35;1m|[0m     ),
+ [2m10[0m | [35;1m`[0m
+[35;1m-[0m[35;1m>[0m 
+})
+ [2m11[0m |     
+ [2m12[0m |     export 
+default function 
+LeaderboardPage() {
+ [2m13[0m |       
+return <LeaderboardClient 
+/>
+    `----
+
+Import trace for 
+requested module:
+./app/app/leaderboard/page
+.tsx
+
+./app/app/page.tsx
+Error:   [31mx[0m `ssr: 
+false` is not allowed 
+with `next/dynamic` in 
+Server Components. Please 
+move it into a Client 
+Component.
+    ,-[[36;1;4mC:\Users\a
+nmol\OneDrive\Documents\My
+ Codes\growstream\GrowStre
+ams_Backend\frontend\app\a
+pp\page.tsx[0m:3:1]
+ [2m 1[0m |     import 
+dynamic from 
+"next/dynamic"
+ [2m 2[0m |     
+ [2m 3[0m | [35;1m,[0m
+[35;1m-[0m[35;1m>[0m 
+const DashboardClient = 
+dynamic(() => import("./Da
+shboardClient"), {
+ [2m 4[0m | 
+[35;1m|[0m     ssr: 
+false,
+ [2m 5[0m | 
+[35;1m|[0m     loading: 
+() => (
+ [2m 6[0m | 
+[35;1m|[0m       <div 
+className="flex 
+items-center 
+justify-center h-64">
+ [2m 7[0m | 
+[35;1m|[0m         <div 
+className="animate-spin 
+rounded-full h-8 w-8 
+border-b-2 
+border-emerald-400" />
+ [2m 8[0m | 
+[35;1m|[0m       </div>
+ [2m 9[0m | 
+[35;1m|[0m     ),
+ [2m10[0m | [35;1m`[0m
+[35;1m-[0m[35;1m>[0m 
+})
+ [2m11[0m |     
+ [2m12[0m |     export 
+default function 
+DashboardPage() {
+ [2m13[0m |       
+return <DashboardClient />
+    `----
+
+Import trace for 
+requested module:
+./app/app/page.tsx
+
+./app/app/streams/page.tsx
+Error:   [31mx[0m `ssr: 
+false` is not allowed 
+with `next/dynamic` in 
+Server Components. Please 
+move it into a Client 
+Component.
+    ,-[[36;1;4mC:\Users\a
+nmol\OneDrive\Documents\My
+ Codes\growstream\GrowStre
+ams_Backend\frontend\app\a
+pp\streams\page.tsx[0m:3:
+1]
+ [2m 1[0m |     import 
+dynamic from 
+'next/dynamic';
+ [2m 2[0m |     
+ [2m 3[0m | [35;1m,[0m
+[35;1m-[0m[35;1m>[0m 
+const StreamsClient = 
+dynamic(() => import('./St
+reamsClient'), {
+ [2m 4[0m | 
+[35;1m|[0m     ssr: 
+false,
+ [2m 5[0m | 
+[35;1m|[0m     loading: 
+() => (
+ [2m 6[0m | 
+[35;1m|[0m       <div 
+className="flex 
+justify-center py-12">
+ [2m 7[0m | 
+[35;1m|[0m         <div 
+className="animate-spin 
+rounded-full h-8 w-8 
+border-b-2 
+border-emerald-400" />
+ [2m 8[0m | 
+[35;1m|[0m       </div>
+ [2m 9[0m | 
+[35;1m|[0m     ),
+ [2m10[0m | [35;1m`[0m
+[35;1m-[0m[35;1m>[0m 
+});
+ [2m11[0m |     
+ [2m12[0m |     export 
+default function 
+StreamsPage() {
+ [2m13[0m |       
+return <StreamsClient />;
+    `----
+
+Import trace for 
+requested module:
+./app/app/streams/page.tsx
+
+
+> Build failed because of 
+webpack errors
