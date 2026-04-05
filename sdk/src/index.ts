@@ -1,4 +1,5 @@
 export { GrowStreams } from './client.js';
+export { StreamCalculator } from './stream-calc';
 export type {
   GrowStreamsConfig,
   HealthResponse,
