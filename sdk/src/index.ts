@@ -11,6 +11,7 @@ export type {
   Permission,
   Bounty,
   Binding,
+  ProtocolStats,
   TxResult,
   PayloadResult,
 } from './types.js';

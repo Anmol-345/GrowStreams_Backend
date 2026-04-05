@@ -159,7 +159,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </button>
           <div className="flex-1" />
           <div className="flex items-center gap-3">
-            {isApiReady && <GearWallet theme="vara" displayBalance />}
+            {isApiReady && (
+              <div className="vara-balance-white">
+                <GearWallet theme="vara" displayBalance accountButtonClassName="vara-balance-white" />
+              </div>
+            )}
             <div className="flex items-center gap-2 text-xs text-provn-muted">
               <span className="hidden sm:inline">Vara Testnet</span>
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />

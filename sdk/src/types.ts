@@ -89,6 +89,33 @@ export interface Binding {
   updated_at: number;
 }
 
+export interface ProtocolStats {
+  streams: {
+    total: string;
+    active: string;
+    paused: string;
+    stopped: string;
+  };
+  vault: {
+    totalDeposited: string;
+    totalAllocated: string;
+    tvlGROW: string;
+  };
+  token: {
+    totalSupply: string;
+    totalSupplyGROW: string;
+  };
+  bounties: {
+    total: string;
+    open: string;
+    completed: string;
+  };
+  identities: {
+    total: string;
+  };
+  generatedAt: string;
+}
+
 export interface TxResult {
   result?: unknown;
   blockHash?: string;

@@ -150,6 +150,89 @@ try {
 }
 ```
 
+## Protocol Health & Stats
+
+Access aggregated protocol-wide statistics for dashboards, trust indicators, and reporting.
+
+```typescript
+// Get aggregated protocol stats (60s cached)
+const stats = await gs.protocol.stats();
+
+console.log('Total streams ever created:', stats.streams.total);
+console.log('Currently active streams:', stats.streams.active);
+console.log('Paused streams:', stats.streams.paused);
+console.log('Stopped streams:', stats.streams.stopped);
+
+console.log('Total locked (TVL):', stats.vault.tvlGROW, 'GROW');
+console.log('Total allocated to streams:', stats.vault.totalAllocated);
+console.log('Total deposited in vault:', stats.vault.totalDeposited);
+
+console.log('Total GROW minted:', stats.token.totalSupplyGROW, 'GROW');
+
+console.log('Total bounties:', stats.bounties.total);
+console.log('Open bounties:', stats.bounties.open);
+console.log('Completed bounties:', stats.bounties.completed);
+
+console.log('Unique identities registered:', stats.identities.total);
+
+console.log('Data generated at:', stats.generatedAt);
+```
+
+### Response Types
+
+```typescript
+export interface ProtocolStats {
+  streams: {
+    total: string;      // Total streams ever created
+    active: string;     // Currently active streams
+    paused: string;     // Paused streams
+    stopped: string;    // Stopped/terminated streams
+  };
+  vault: {
+    totalDeposited: string;    // Raw units across all tokens in vault
+    totalAllocated: string;    // Raw units allocated to active streams
+    tvlGROW: string;          // Human-readable GROW equivalent (formatted)
+  };
+  token: {
+    totalSupply: string;       // Total GROW minted (raw units)
+    totalSupplyGROW: string;   // Human-readable format
+  };
+  bounties: {
+    total: string;
+    open: string;
+    completed: string;
+  };
+  identities: {
+    total: string;
+  };
+  generatedAt: string;  // ISO 8601 timestamp
+}
+```
+
+### Use Cases
+
+- **Trust Indicators**: Display "1000+ GROW already streamed" on landing page
+- **Grant Reports**: "Current TVL: 50,000 GROW" for milestone documentation
+- **Protocol Dashboards**: Real-time health metrics and trends
+- **Monitoring**: `protocol.statsHealth()` returns cache status for alerting
+
+### Cache Behavior
+
+- Results cached for 60 seconds on server to minimize Vara node load
+- Client SDK automatically handles `X-Cache: HIT/MISS` headers
+- Use `.statsHealth()` to check current cache age if lower latency needed
+
+```typescript
+// Check cache status
+const health = await gs.protocol.statsHealth();
+console.log('Cache age:', health.cacheAge, 'ms');
+console.log('Cache status:', health.cacheStatus); // 'HIT' or 'MISS'
+
+if (health.cacheAge > 50000) {
+  // Cache about to expire, consider refreshing UI
+}
+```
+
 ## Supported Tokens
 
 | Token | Program ID | Decimals | Network |

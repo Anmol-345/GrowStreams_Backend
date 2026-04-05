@@ -20,6 +20,7 @@ import campaignRouter from './routes/campaign.mjs';
 import webhooksRouter from './routes/webhooks.mjs';
 import leaderboardRouter from './routes/leaderboard.mjs';
 import usersRouter from './routes/users.mjs';
+import protocolRouter from './routes/protocol.mjs';
 import { startStream as startXStream } from './services/x-agent.mjs';
 import { initCrons } from './cron/index.mjs';
 
@@ -47,6 +48,7 @@ app.use('/api/campaign', campaignRouter);
 app.use('/api/webhooks', webhooksRouter);
 app.use('/api/leaderboard', leaderboardRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/protocol', protocolRouter);
 
 app.get('/', (req, res) => {
   res.json({

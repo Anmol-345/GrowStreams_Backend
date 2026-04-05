@@ -20,7 +20,7 @@ export default function WalletConnect() {
           </p>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           {isApiReady ? (
             <Wallet theme="vara" displayBalance />
           ) : (

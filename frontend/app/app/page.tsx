@@ -104,8 +104,106 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-400" />
+      <div className="max-w-5xl mx-auto space-y-6">
+        {/* Header Skeleton */}
+        <div className="flex items-center justify-between">
+          <div className="space-y-2">
+            <div className="h-8 w-48 bg-provn-surface rounded-lg skeleton-wave"></div>
+            <div className="h-4 w-64 bg-provn-surface rounded-lg skeleton-wave"></div>
+          </div>
+          <div className="h-10 w-10 bg-provn-surface rounded-lg skeleton-wave"></div>
+        </div>
+
+        {/* Stats Grid Skeleton */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-provn-surface border border-provn-border rounded-xl p-4 space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-provn-surface rounded skeleton-wave"></div>
+                <div className="h-3 w-24 bg-provn-surface rounded skeleton-wave"></div>
+              </div>
+              <div className="h-8 w-32 bg-provn-surface rounded skeleton-wave"></div>
+              <div className="h-3 w-20 bg-provn-surface rounded skeleton-wave"></div>
+            </div>
+          ))}
+        </div>
+
+        {/* Campaign XP Skeleton */}
+        <div className="bg-provn-surface border border-provn-border rounded-xl p-4">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 bg-provn-surface rounded-xl flex-shrink-0 skeleton-wave"></div>
+            <div className="flex-1 space-y-2">
+              <div className="h-4 w-40 bg-provn-surface rounded skeleton-wave"></div>
+              <div className="h-3 w-56 bg-provn-surface rounded skeleton-wave"></div>
+            </div>
+            <div className="text-right space-y-2">
+              <div className="h-6 w-20 bg-provn-surface rounded skeleton-wave"></div>
+              <div className="h-3 w-16 bg-provn-surface rounded skeleton-wave"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Flow Stats Skeleton */}
+        <div className="grid grid-cols-3 gap-3">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="bg-provn-surface border border-provn-border rounded-xl p-4 space-y-2">
+              <div className="h-3 w-20 bg-provn-surface rounded skeleton-wave"></div>
+              <div className="h-6 w-24 bg-provn-surface rounded skeleton-wave"></div>
+            </div>
+          ))}
+        </div>
+
+        {/* Action Cards Skeleton */}
+        <div className="grid lg:grid-cols-3 gap-3">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="bg-provn-surface border border-provn-border rounded-xl p-5 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-provn-surface rounded-xl skeleton-wave"></div>
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 w-32 bg-provn-surface rounded skeleton-wave"></div>
+                  <div className="h-3 w-24 bg-provn-surface rounded skeleton-wave"></div>
+                </div>
+              </div>
+              <div className="h-3 w-40 bg-provn-surface rounded skeleton-wave"></div>
+            </div>
+          ))}
+        </div>
+
+        {/* Recent Streams Skeleton */}
+        <div className="bg-provn-surface border border-provn-border rounded-xl overflow-hidden">
+          <div className="px-5 py-3 border-b border-provn-border">
+            <div className="h-4 w-32 bg-provn-surface rounded skeleton-wave"></div>
+          </div>
+          <div className="divide-y divide-provn-border/50">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="flex items-center gap-4 px-5 py-3">
+                <div className="w-8 h-8 bg-provn-surface rounded skeleton-wave flex-shrink-0"></div>
+                <div className="flex-1 space-y-2">
+                  <div className="h-3 w-20 bg-provn-surface rounded skeleton-wave"></div>
+                  <div className="h-2 w-full bg-provn-surface rounded-full skeleton-wave"></div>
+                </div>
+                <div className="text-right space-y-1">
+                  <div className="h-3 w-20 bg-provn-surface rounded skeleton-wave"></div>
+                  <div className="h-2 w-16 bg-provn-surface rounded skeleton-wave"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* How it Works Skeleton */}
+        <div className="bg-provn-surface border border-provn-border rounded-xl p-5 space-y-3">
+          <div className="h-4 w-32 bg-provn-surface rounded skeleton-wave"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="p-3 rounded-lg bg-provn-bg/30 space-y-2">
+                <div className="w-8 h-8 bg-provn-surface rounded skeleton-wave"></div>
+                <div className="h-3 w-16 bg-provn-surface rounded skeleton-wave"></div>
+                <div className="h-2 w-20 bg-provn-surface rounded skeleton-wave"></div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

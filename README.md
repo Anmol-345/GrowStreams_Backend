@@ -165,6 +165,70 @@ See [TESTING-GUIDE.md](frontend/TESTING-GUIDE.md) for detailed step-by-step inst
 - Viral bonus: +800 XP at 500+ engagements
 - Reshare bonus: +500 XP if @VaraNetwork retweets
 
+### Protocol Stats (Aggregated Health Metrics)
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/protocol/stats` | GET | Aggregated protocol statistics (60s cached) |
+| `/api/protocol/health` | GET | Cache status and diagnostics |
+
+**GET `/api/protocol/stats`** — Returns aggregated protocol health metrics with 60-second server-side caching.
+
+**Response:**
+```json
+{
+  "streams": {
+    "total": "142",
+    "active": "38",
+    "paused": "2",
+    "stopped": "102"
+  },
+  "vault": {
+    "totalDeposited": "4820000000000000",
+    "totalAllocated": "1240000000000000",
+    "tvlGROW": "4.82"
+  },
+  "token": {
+    "totalSupply": "1000000000000000000",
+    "totalSupplyGROW": "1000000.00"
+  },
+  "bounties": {
+    "total": "18",
+    "open": "12",
+    "completed": "6"
+  },
+  "identities": {
+    "total": "24"
+  },
+  "generatedAt": "2024-01-15T10:30:45.123Z"
+}
+```
+
+**Cache Behavior:**
+- Server caches results for 60 seconds to minimize Vara node load
+- Response includes `X-Cache: HIT` or `X-Cache: MISS` header
+- `Cache-Control: max-age=60` for client-side caching
+- All numeric values are strings (JSON-safe BigInt handling)
+- GROW amounts use 12-decimal precision: divide by 1,000,000,000,000 for human-readable values
+
+**GET `/api/protocol/health`** — Returns cache status for diagnostics.
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "cacheStatus": "HIT",
+  "cacheAge": 35000,
+  "cacheTTL": 60000
+}
+```
+
+**Use Cases:**
+- Trust indicators for new users ("1000+ GROW already streamed!")
+- Grant milestone reporting ("$50K+ in lockup value")
+- Protocol transparency dashboards
+- Health monitoring (cache misses indicate node issues)
+
 ### Other Contracts
 
 | Endpoint | Description |

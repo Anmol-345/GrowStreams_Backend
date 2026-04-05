@@ -10,6 +10,7 @@ import type {
   Permission,
   Bounty,
   Binding,
+  ProtocolStats,
   TxResult,
   PayloadResult,
 } from './types.js';
@@ -238,5 +239,13 @@ export class GrowStreams {
 
     updateScore: (params: { actorId: string; newScore: number; mode?: 'payload' }) =>
       this.post<TxResult | PayloadResult>('/api/identity/update-score', params as unknown as Record<string, unknown>),
+  };
+
+  // ---- Protocol Stats ----
+
+  readonly protocol = {
+    stats: () => this.get<ProtocolStats>('/api/protocol/stats'),
+
+    statsHealth: () => this.get<{ status: string; cacheStatus: string; cacheAge: number | null; cacheTTL: number }>('/api/protocol/health'),
   };
 }

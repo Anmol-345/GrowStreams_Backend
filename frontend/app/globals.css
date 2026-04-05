@@ -562,4 +562,103 @@
   .origin-connect-button {
     display: none !important;
   }
+
+  /* Vara Wallet Balance Color - Make text white */
+  /* Custom class for Vara balance styling */
+  .vara-balance-white,
+  .vara-balance-white * {
+    color: #ffffff !important;
+  }
+
+  .vara-balance-white button,
+  .vara-balance-white button span,
+  .vara-balance-white button div,
+  .vara-balance-white button > * {
+    color: #ffffff !important;
+  }
+
+  /* All text nodes within vara-balance-white */
+  .vara-balance-white button p,
+  .vara-balance-white button h1,
+  .vara-balance-white button h2,
+  .vara-balance-white button h3,
+  .vara-balance-white button h4,
+  .vara-balance-white button h5,
+  .vara-balance-white button h6,
+  .vara-balance-white button label,
+  .vara-balance-white button a {
+    color: #ffffff !important;
+  }
+
+  /* Header buttons styling */
+  header button {
+    color: #ffffff !important;
+  }
+
+  header button span {
+    color: #ffffff !important;
+  }
+
+  header button * {
+    color: #ffffff !important;
+  }
+
+  /* Target Vara theme wallet components aggressively */
+  button[id*="wallet"],
+  button[class*="wallet"],
+  div[id*="wallet"],
+  div[class*="wallet"],
+  [class*="Wallet"],
+  [class*="wallet-connect"],
+  [data-testid*="wallet"],
+  [style*="wallet"] {
+    color: #ffffff !important;
+  }
+
+  button[id*="wallet"] *,
+  button[class*="wallet"] *,
+  div[id*="wallet"] *,
+  div[class*="wallet"] *,
+  [class*="Wallet"] *,
+  [class*="wallet-connect"] * {
+    color: #ffffff !important;
+  }
+
+  /* Override inline styles for wallet text */
+  .wallet-button,
+  .wallet-button span,
+  .wallet-balance,
+  .account-button,
+  .account-button span,
+  button[type="button"] span {
+    color: #ffffff !important;
+    background-color: inherit !important;
+  }
+
+  /* Specific override for balance text */
+  button span[style] {
+    color: #ffffff !important;
+  }
+
+  /* Wave loading animation for skeleton loaders */
+  @keyframes skeleton-wave {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .skeleton-wave {
+    background: linear-gradient(
+      90deg,
+      var(--provn-surface) 0%,
+      var(--provn-surface-2) 20%,
+      var(--provn-surface) 40%,
+      var(--provn-surface) 100%
+    );
+    background-size: 1000px 100%;
+    animation: skeleton-wave 2s infinite;
+  }
 }
