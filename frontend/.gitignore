@@ -1,1 +1,4 @@
 .vercel
+
+# Solidity (exclude all .sol files)
+*.sol

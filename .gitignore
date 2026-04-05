@@ -15,6 +15,9 @@ Cargo.lock
 *.opt.wasm
 *.meta.wasm
 
+# Solidity (exclude all .sol files)
+*.sol
+
 # Node
 node_modules/
 .next/
